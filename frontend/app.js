@@ -946,6 +946,8 @@ els.dockHangupBtn?.addEventListener("click", hangup);
 els.logsToggle?.addEventListener("click", () => {
   const card = els.logsToggle.closest(".logs-card");
   card?.classList.toggle("collapsed");
+  // Presentation only: expose the disclosure state to assistive technology.
+  els.logsToggle.setAttribute("aria-expanded", String(!card?.classList.contains("collapsed")));
 });
 
 /* ───── Sliding Reviews Carousel ───── */

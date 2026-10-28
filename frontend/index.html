@@ -3,11 +3,12 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>TalkBridge AI — Real-Time English ⇄ Hindi Voice Translation Calling App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>TalkBridge AI — Real-Time Multilingual Voice Translation Calling App</title>
   <meta name="description"
-    content="TalkBridge AI enables real-time multilingual voice calls with live English-Hindi bidirectional voice and text translation." />
-  
+    content="TalkBridge AI enables real-time multilingual voice calls with live English, Hindi and Kannada voice and text translation." />
+  <meta name="color-scheme" content="dark" />
+
   <!-- PWA & Native App Meta Tags -->
   <link rel="manifest" href="./manifest.json" />
   <meta name="theme-color" content="#1e1b4b" />
@@ -20,34 +21,36 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css?v=200" />
 </head>
 
 <body>
-  <div class="bg-glow bg-glow-1"></div>
-  <div class="bg-glow bg-glow-2"></div>
-
-  <main class="container">
-    <!-- Top App Navigation / Hero Bar -->
-    <header class="app-header glass">
+  <!-- Top application bar -->
+  <header class="app-header">
+    <div class="app-header-inner">
       <div class="logo">
         <div class="logo-icon">
-          <img src="./icon.svg" alt="TalkBridge AI Icon" width="34" height="34" />
+          <img src="./icon.svg" alt="" width="40" height="40" />
         </div>
         <div class="logo-text">
           <div class="app-title-row">
             <h1>TalkBridge AI</h1>
-            <span class="badge-live"><span class="badge-dot"></span> LIVE VOICE TRANSLATION</span>
+            <span class="badge-live">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 8 6 6" /><path d="m4 14 6-6 2-3" /><path d="M2 5h12" /><path d="M7 2h1" /><path d="m22 22-5-10-5 10" /><path d="M14 18h6" />
+              </svg>
+              Live translation
+            </span>
           </div>
-          <p class="tagline">Real-Time English ⇄ Hindi Voice Call & Live Interpretation</p>
+          <p class="tagline">Real-time multilingual communication</p>
         </div>
       </div>
 
       <div class="header-actions">
         <!-- Install App Button (PWA) -->
-        <button id="installAppBtn" class="btn btn-install" style="display: none;" title="Install TalkBridge as Desktop/Mobile App">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button id="installAppBtn" type="button" class="btn btn-secondary btn-sm btn-install" style="display: none;" title="Install TalkBridge as Desktop/Mobile App">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -55,92 +58,145 @@
           <span>Install App</span>
         </button>
 
-        <button id="shareRoomBtn" class="btn btn-secondary btn-sm" title="Copy Room Invite Link">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button id="shareRoomBtn" type="button" class="btn btn-secondary btn-sm" title="Copy Room Invite Link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
           </svg>
           <span>Share Room</span>
         </button>
       </div>
-    </header>
+    </div>
+  </header>
 
+  <main class="container workspace" id="main">
     <!-- Connection & Room Setup Card -->
-    <section class="card glass" id="connectionCard">
+    <section class="card setup-card" id="connectionCard" aria-labelledby="setupTitle">
       <div class="card-header">
         <div class="card-title-group">
-          <h2><span class="icon">⚡</span> Call Room Setup</h2>
-          <span class="card-subtitle">Connect with your peer for live two-way voice translation</span>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="21" y1="4" x2="14" y2="4" /><line x1="10" y1="4" x2="3" y2="4" /><line x1="21" y1="12" x2="12" y2="12" /><line x1="8" y1="12" x2="3" y2="12" /><line x1="21" y1="20" x2="16" y2="20" /><line x1="12" y1="20" x2="3" y2="20" /><line x1="14" y1="2" x2="14" y2="6" /><line x1="8" y1="10" x2="8" y2="14" /><line x1="16" y1="18" x2="16" y2="22" />
+            </svg>
+          </span>
+          <h2 id="setupTitle">Call Room Setup</h2>
+          <p class="card-subtitle">Connect with your peer for live two-way voice translation</p>
         </div>
         <div class="status-pills">
           <span id="signalingStatus" class="pill" data-status="off">
-            <span class="pill-dot"></span> Signaling
+            <span class="pill-dot" aria-hidden="true"></span>
+            <span class="pill-label">Signaling</span>
+            <span class="pill-state"></span>
           </span>
           <span id="callStatus" class="pill" data-status="off">
-            <span class="pill-dot"></span> Call Ready
+            <span class="pill-dot" aria-hidden="true"></span>
+            <span class="pill-label">Call</span>
+            <span class="pill-state"></span>
           </span>
         </div>
       </div>
 
-      <div class="form-grid">
-        <label class="input-group">
-          <span class="input-label">Room ID (Share with other person)</span>
-          <div class="input-with-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <input id="roomId" placeholder="e.g. demo-room" value="demo-room" />
+      <div class="setup-fields">
+        <div class="input-group field-room">
+          <label class="input-label" for="roomId"><span class="step" aria-hidden="true">1</span>Room ID <span class="input-hint">(share with your peer)</span></label>
+          <span class="input-with-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" /><line x1="10" y1="3" x2="8" y2="21" /><line x1="16" y1="3" x2="14" y2="21" /></svg>
+            <input id="roomId" placeholder="e.g. demo-room" value="demo-room" autocomplete="off" autocapitalize="off" spellcheck="false" />
+          </span>
+        </div>
+
+        <div class="field-langs" role="group" aria-labelledby="langGroupLabel">
+          <span class="input-label" id="langGroupLabel"><span class="step" aria-hidden="true">2</span>Languages</span>
+          <div class="lang-selector">
+            <div class="lang-option lang-option-source">
+              <label class="lang-label" for="myLang">I speak <span class="lang-label-hint">(You)</span></label>
+              <select id="myLang" class="lang-dropdown">
+                <option value="en" selected>English</option>
+                <option value="hi">Hindi (हिंदी)</option>
+                <option value="kn">Kannada (ಕನ್ನಡ)</option>
+              </select>
+            </div>
+            <button id="swapLangBtn" type="button" class="lang-swap" title="Swap languages" aria-label="Swap languages">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 1l4 4-4 4" />
+                <path d="M3 11V9a4 4 0 014-4h14" />
+                <path d="M7 23l-4-4 4-4" />
+                <path d="M21 13v2a4 4 0 01-4 4H3" />
+              </svg>
+            </button>
+            <div class="lang-option lang-option-target">
+              <label class="lang-label" for="theyHearLang">Translated to <span class="lang-label-hint">(They hear)</span></label>
+              <select id="theyHearLang" class="lang-dropdown">
+                <option value="kn" selected>Kannada (ಕನ್ನಡ)</option>
+                <option value="en">English</option>
+                <option value="hi">Hindi (हिंदी)</option>
+              </select>
+            </div>
           </div>
-        </label>
-        <label class="input-group">
-          <span class="input-label">✨ Gemini AI Key (Optional for Intent & Slang Reasoning)</span>
-          <div class="input-with-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <input id="geminiApiKey" type="password" placeholder="AIzaSy... (or leave blank for Neural)" />
-          </div>
-        </label>
+        </div>
+
+        <div class="input-group field-key">
+          <label class="input-label" for="geminiApiKey">Gemini AI key <span class="optional-tag">Optional</span></label>
+          <span class="input-with-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" /><circle cx="16.5" cy="7.5" r=".5" fill="currentColor" /></svg>
+            <input id="geminiApiKey" type="password" placeholder="AIzaSy..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="geminiKeyHelp" />
+          </span>
+          <p class="field-help" id="geminiKeyHelp">Adds intent &amp; slang reasoning. Leave blank to use neural translation.</p>
+        </div>
       </div>
 
-      <div class="actions">
-        <button id="joinBtn" class="btn btn-primary" onclick="joinRoom()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
-          </svg>
-          Join Room
-        </button>
-        <button id="startBtn" class="btn btn-success" onclick="startCall()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-          </svg>
-          Start Voice Translation
-        </button>
-        <button id="hangupBtn" class="btn btn-danger" onclick="hangup()" disabled>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-          Hang Up
-        </button>
+      <div class="setup-actions">
+        <span class="input-label actions-label" id="actionsLabel"><span class="step" aria-hidden="true">3</span>Join &amp; start</span>
+        <div class="actions" role="group" aria-labelledby="actionsLabel">
+          <button id="joinBtn" type="button" class="btn btn-secondary" onclick="joinRoom()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
+            </svg>
+            Join Room
+          </button>
+          <button id="startBtn" type="button" class="btn btn-primary btn-lg" onclick="startCall()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+            </svg>
+            Start Voice Translation
+          </button>
+          <button id="hangupBtn" type="button" class="btn btn-danger" onclick="hangup()" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91" /><line x1="23" y1="1" x2="1" y2="23" />
+            </svg>
+            Hang Up
+          </button>
+        </div>
       </div>
 
       <div class="meta-row">
-        <span class="meta-label">Your Client ID:</span>
-        <code id="clientId" class="meta-value"></code>
-        <span class="meta-tip">Tip: Click Join Room & Start Call to begin live voice translation!</span>
+        <span class="meta-item">
+          <span class="meta-label">Your client ID</span>
+          <code id="clientId" class="meta-value"></code>
+        </span>
+        <span class="meta-tip">Tip: use the same Room ID on both devices, then press Start Voice Translation and speak.</span>
       </div>
     </section>
 
-    <!-- Main Calling App Grid -->
-    <div class="call-grid">
-      <!-- Left: Interactive Live Audio Call Stage -->
-      <section class="card glass" id="audioCard">
-        <div class="card-header">
-          <div class="card-title-group">
-            <h2><span class="icon">🎙️</span> Live Voice Stage</h2>
-            <span class="card-subtitle">Encrypted WebRTC P2P Voice Stream</span>
-          </div>
-          <span id="callTimer" class="call-timer">00:00</span>
+    <!-- Left: Interactive Live Audio Call Stage -->
+    <section class="card stage-card" id="audioCard" aria-labelledby="stageTitle">
+      <div class="card-header">
+        <div class="card-title-group">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="1" width="6" height="12" rx="3" /><path d="M19 10v2a7 7 0 01-14 0v-2" /><line x1="12" y1="19" x2="12" y2="23" /><line x1="8" y1="23" x2="16" y2="23" /></svg>
+          </span>
+          <h2 id="stageTitle">Live Voice Stage</h2>
+          <p class="card-subtitle">Encrypted WebRTC P2P Voice Stream</p>
         </div>
+        <span class="call-timer-wrap">
+          <span class="sr-only">Call duration</span>
+          <span id="callTimer" class="call-timer" role="timer">00:00</span>
+        </span>
+      </div>
 
-        <!-- Visual Caller Stage -->
+      <!-- Visual Caller Stage -->
+      <div class="stage-panel">
         <div class="call-stage">
           <div class="caller-card" id="localCallerCard">
             <div class="avatar-wrap">
@@ -153,7 +209,7 @@
             </div>
           </div>
 
-          <div class="call-connector">
+          <div class="call-connector" aria-hidden="true">
             <div class="connector-line">
               <div class="connector-pulse"></div>
             </div>
@@ -174,8 +230,8 @@
 
         <!-- Waveform Visualizer -->
         <div class="visualizer-wrap">
-          <canvas id="waveformCanvas" width="400" height="85"></canvas>
-          <div id="micIndicator" class="mic-indicator">
+          <canvas id="waveformCanvas" width="400" height="85" role="img" aria-label="Live microphone input level"></canvas>
+          <div id="micIndicator" class="mic-indicator" aria-hidden="true">
             <div class="mic-ring"></div>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <rect x="9" y="1" width="6" height="12" rx="3" />
@@ -185,264 +241,258 @@
             </svg>
           </div>
         </div>
+      </div>
 
-        <!-- Live Word-by-Word Streaming Subtitles Bar -->
-        <div class="live-subtitle-container" id="liveSubtitleContainer">
-          <div class="subtitle-header">
-            <span class="live-caption-indicator">
-              <span class="pulse-dot"></span> LIVE SUBTITLES (WORD-BY-WORD)
+      <!-- Live Word-by-Word Streaming Subtitles Bar -->
+      <div class="live-subtitle-container" id="liveSubtitleContainer" role="region" aria-labelledby="subtitleTitle">
+        <div class="subtitle-header">
+          <h3 class="live-caption-indicator" id="subtitleTitle">
+            <span class="pulse-dot" aria-hidden="true"></span> Live subtitles <span class="subtitle-mode">Word-by-word</span>
+          </h3>
+          <span class="subtitle-hint" id="translationModeHint">English ➔ Hindi</span>
+        </div>
+        <div class="subtitle-box">
+          <div class="subtitle-stream-row">
+            <span class="subtitle-speaker" id="spokenLabel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="1" width="6" height="12" rx="3" /><path d="M19 10v2a7 7 0 01-14 0v-2" /><line x1="12" y1="19" x2="12" y2="23" /></svg>
+              Spoken
             </span>
-            <span class="subtitle-hint" id="translationModeHint">English ➔ Hindi</span>
-          </div>
-          <div class="subtitle-box">
-            <div class="subtitle-stream-row">
-              <span class="subtitle-speaker" id="spokenLabel">🎤 Spoken:</span>
-              <span id="streamingWordTicker" class="streaming-text">Click Start Voice Translation and speak into mic...</span>
-              <span class="typing-cursor"></span>
-            </div>
-            <div class="subtitle-stream-row translation-row" id="streamingTranslationRow">
-              <span class="subtitle-speaker" id="translatedLabel">🌐 Translation:</span>
-              <span id="streamingWordTranslation" class="streaming-translation-text">—</span>
+            <div class="subtitle-scroll subtitle-scroll-live">
+              <p class="subtitle-line"><span id="streamingWordTicker" class="streaming-text">Click Start Voice Translation and speak into mic...</span><span class="typing-cursor" aria-hidden="true"></span></p>
             </div>
           </div>
-          <div class="subtitle-footer">
-            <span id="listeningStatusTip" class="listening-tip">🎙️ Speaks continuously • Pauses allowed</span>
-            <button id="commitTranslateBtn" class="btn-commit-translate" title="Finish speaking & translate immediately (or press Spacebar)">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Done Speaking (Translate)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Floating Call Action Dock -->
-        <div class="call-action-dock">
-          <button id="dockMuteBtn" class="dock-btn" title="Mute / Unmute Microphone">
-            <svg id="dockMicIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="1" width="6" height="12" rx="3" /><path d="M19 10v2a7 7 0 01-14 0v-2" /><line x1="12" y1="19" x2="12" y2="23" /></svg>
-            <span id="dockMicLabel">Mute</span>
-          </button>
-          
-          <button id="dockSwapLangBtn" class="dock-btn" title="Quick Swap Languages">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-            <span>Swap Lang</span>
-          </button>
-
-          <button id="dockListenModeBtn" class="dock-btn" title="Toggle Audio Mode (Translation vs Both)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-            <span id="dockListenModeLabel">Translated Voice</span>
-          </button>
-
-          <button id="dockHangupBtn" class="dock-btn dock-btn-danger" disabled title="End Call">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91" /><line x1="23" y1="1" x2="1" y2="23" /></svg>
-            <span>Hang Up</span>
-          </button>
-        </div>
-
-        <audio id="remoteAudio" autoplay playsinline muted></audio>
-
-        <div class="listen-mode" style="margin-top: 14px;">
-          <span class="listen-mode-label">Output Audio Routing</span>
-          <div class="segmented" role="tablist">
-            <input type="radio" name="listenMode" id="listenTranslated" value="translated" checked />
-            <label for="listenTranslated">Translated voice only</label>
-            <input type="radio" name="listenMode" id="listenBoth" value="both" />
-            <label for="listenBoth">Original voice + translation</label>
-          </div>
-        </div>
-      </section>
-
-      <!-- Right: Language Setup & Live Translation Transcript Box -->
-      <section class="card glass" id="translationCard">
-        <div class="card-header">
-          <div class="card-title-group">
-            <h2><span class="icon">🌐</span> Live Translation Box</h2>
-            <span class="card-subtitle">Whisper ASR • MarianMT • Neural TTS</span>
-          </div>
-          <div class="stage-chips" aria-label="Pipeline status">
-            <span id="chipAsr" class="chip" data-active="false">ASR</span>
-            <span id="chipMt" class="chip" data-active="false">Translate</span>
-            <span id="chipTts" class="chip" data-active="false">TTS</span>
-            <span id="chipLatency" class="chip chip-meter" title="End-to-end latency (last segment)">— ms</span>
-          </div>
-        </div>
-
-        <!-- Language Selector with swap -->
-        <div class="lang-selector">
-          <div class="lang-option">
-            <span class="lang-label">I speak (You)</span>
-            <select id="myLang" class="lang-dropdown">
-              <option value="en" selected>English</option>
-              <option value="hi">Hindi (हिंदी)</option>
-              <option value="kn">Kannada (ಕನ್ನಡ)</option>
-            </select>
-          </div>
-          <button id="swapLangBtn" class="lang-swap" title="Swap languages" aria-label="Swap languages">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 1l4 4-4 4" />
-              <path d="M3 11V9a4 4 0 014-4h14" />
-              <path d="M7 23l-4-4 4-4" />
-              <path d="M21 13v2a4 4 0 01-4 4H3" />
-            </svg>
-          </button>
-          <div class="lang-option">
-            <span class="lang-label">Translated to (They Hear)</span>
-            <select id="theyHearLang" class="lang-dropdown">
-              <option value="kn" selected>Kannada (ಕನ್ನಡ)</option>
-              <option value="en">English</option>
-              <option value="hi">Hindi (हिंदी)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Live transcript area -->
-        <div class="transcript-toolbar">
-          <div class="toolbar-title-group">
-            <span class="transcript-title">Translated Conversation Log</span>
-            <span class="transcript-count" id="transcriptCount">0 messages</span>
-          </div>
-          <div class="transcript-actions">
-            <button id="copyTranscriptBtn" class="btn-icon" title="Copy transcript" aria-label="Copy transcript">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="9" y="9" width="13" height="13" rx="2" />
-                <path d="M5 15V5a2 2 0 012-2h10" />
-              </svg>
-              Copy
-            </button>
-            <button id="clearTranscriptBtn" class="btn-icon" title="Clear transcript" aria-label="Clear transcript">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="3 6 5 6 21 6" />
-                <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
-              </svg>
-              Clear
-            </button>
-          </div>
-        </div>
-
-        <div class="transcript-panel" id="transcriptPanel">
-          <div class="transcript-placeholder" id="transcriptPlaceholder">
-            <div class="placeholder-icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-              </svg>
+          <div class="subtitle-stream-row translation-row" id="streamingTranslationRow">
+            <span class="subtitle-speaker" id="translatedLabel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6" /><path d="m4 14 6-6 2-3" /><path d="M2 5h12" /><path d="M7 2h1" /><path d="m22 22-5-10-5 10" /><path d="M14 18h6" /></svg>
+              Translation
+            </span>
+            <div class="subtitle-scroll">
+              <p class="subtitle-line subtitle-line-translation"><span id="streamingWordTranslation" class="streaming-translation-text">—</span></p>
             </div>
-            <span>Speak in English or Hindi — your translated text and audio will appear here in real-time.</span>
           </div>
         </div>
+        <div class="subtitle-footer">
+          <span id="listeningStatusTip" class="listening-tip">Speak continuously • Pauses allowed</span>
+          <button id="commitTranslateBtn" type="button" class="btn-commit-translate" title="Finish speaking & translate immediately (or press Spacebar)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Done Speaking (Translate)</span>
+            <kbd class="kbd" aria-hidden="true">Space</kbd>
+          </button>
+        </div>
+      </div>
 
-        <audio id="translatedAudio" controls></audio>
-      </section>
-    </div>
+      <!-- Floating Call Action Dock -->
+      <div class="call-action-dock" role="group" aria-label="Call controls">
+        <button id="dockMuteBtn" type="button" class="dock-btn" title="Mute / Unmute Microphone">
+          <svg id="dockMicIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="1" width="6" height="12" rx="3" /><path d="M19 10v2a7 7 0 01-14 0v-2" /><line x1="12" y1="19" x2="12" y2="23" /></svg>
+          <span id="dockMicLabel">Mute</span>
+        </button>
 
-    <!-- User reviews (sliding carousel) -->
-    <section class="card glass reviews-card" id="reviewsCard" aria-roledescription="carousel"
-      aria-label="User reviews">
+        <button id="dockSwapLangBtn" type="button" class="dock-btn" title="Quick Swap Languages">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          <span>Swap Lang</span>
+        </button>
+
+        <button id="dockListenModeBtn" type="button" class="dock-btn" title="Toggle Audio Mode (Translation vs Both)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          <span id="dockListenModeLabel">Translated Voice</span>
+        </button>
+
+        <button id="dockHangupBtn" type="button" class="dock-btn dock-btn-danger" disabled title="End Call">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91" /><line x1="23" y1="1" x2="1" y2="23" /></svg>
+          <span>Hang Up</span>
+        </button>
+      </div>
+
+      <audio id="remoteAudio" autoplay playsinline muted></audio>
+
+      <div class="listen-mode">
+        <span class="listen-mode-label" id="listenModeLabel">Output Audio Routing</span>
+        <div class="segmented" role="radiogroup" aria-labelledby="listenModeLabel">
+          <input type="radio" name="listenMode" id="listenTranslated" value="translated" checked />
+          <label for="listenTranslated">Translated voice only</label>
+          <input type="radio" name="listenMode" id="listenBoth" value="both" />
+          <label for="listenBoth">Original voice + translation</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: Live Translation Transcript Box -->
+    <section class="card translation-card" id="translationCard" aria-labelledby="translationTitle">
       <div class="card-header">
         <div class="card-title-group">
-          <h2><span class="icon">⭐</span> Engineering Showcase & Feedback</h2>
-          <span class="card-subtitle">Real-Time multilingual calling tested across low-bandwidth networks</span>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z" /><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" /></svg>
+          </span>
+          <h2 id="translationTitle">Live Translation Box</h2>
+          <p class="card-subtitle">Whisper ASR • MarianMT • Neural TTS</p>
         </div>
-        <div class="reviews-nav">
-          <button id="reviewPrev" class="review-arrow" aria-label="Previous review">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6" />
+      </div>
+
+      <div class="pipeline-row">
+        <span class="pipeline-label" aria-hidden="true">Pipeline</span>
+        <div class="stage-chips" role="group" aria-label="Pipeline status">
+          <span id="chipAsr" class="chip" data-active="false">ASR</span>
+          <span id="chipMt" class="chip" data-active="false">Translate</span>
+          <span id="chipTts" class="chip" data-active="false">TTS</span>
+          <span id="chipLatency" class="chip chip-meter" title="End-to-end latency (last segment)">— ms</span>
+        </div>
+      </div>
+
+      <!-- Live transcript area -->
+      <div class="transcript-toolbar">
+        <div class="toolbar-title-group">
+          <h3 class="transcript-title">Translated Conversation Log</h3>
+          <span class="transcript-count" id="transcriptCount">0 messages</span>
+        </div>
+        <div class="transcript-actions">
+          <button id="copyTranscriptBtn" type="button" class="btn-icon" title="Copy transcript" aria-label="Copy transcript">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" />
+              <path d="M5 15V5a2 2 0 012-2h10" />
             </svg>
+            Copy
           </button>
-          <button id="reviewNext" class="review-arrow" aria-label="Next review">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6" />
+          <button id="clearTranscriptBtn" type="button" class="btn-icon" title="Clear transcript" aria-label="Clear transcript">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
             </svg>
+            Clear
           </button>
         </div>
       </div>
 
-      <div class="reviews-viewport" id="reviewsViewport">
-        <div class="reviews-track" id="reviewsTrack">
-          <article class="review-slide" data-accent="a">
-            <div class="review-top">
-              <div class="review-avatar">PS</div>
-              <div class="review-id">
-                <div class="review-name">Priya Sharma</div>
-                <div class="review-role">Calling parents from London</div>
-              </div>
-              <div class="review-stars" aria-label="5 stars">★★★★★</div>
-            </div>
-            <p class="review-body">
-              I speak English all day at work, and my parents only speak Hindi. TalkBridge made our calls
-              feel normal again — they talk, I reply, and the translation just happens.
-            </p>
-          </article>
-
-          <article class="review-slide" data-accent="b">
-            <div class="review-top">
-              <div class="review-avatar">RK</div>
-              <div class="review-id">
-                <div class="review-name">Rajesh Kumar</div>
-                <div class="review-role">Remote Team Collaboration</div>
-              </div>
-              <div class="review-stars" aria-label="5 stars">★★★★★</div>
-            </div>
-            <p class="review-body">
-              The live word-by-word streaming captions show what the speaker is saying in milliseconds. 
-              The voice interpretation follows naturally with high accuracy.
-            </p>
-          </article>
-
-          <article class="review-slide" data-accent="c">
-            <div class="review-top">
-              <div class="review-avatar">EW</div>
-              <div class="review-id">
-                <div class="review-name">Emma Wilson</div>
-                <div class="review-role">Language Exchange Partner</div>
-              </div>
-              <div class="review-stars" aria-label="4 stars">★★★★☆</div>
-            </div>
-            <p class="review-body">
-              I practice Hindi every morning. Hearing the Hindi pronunciation while seeing the instant English 
-              transcript helps me understand conversational nuances much faster.
-            </p>
-          </article>
-
-          <article class="review-slide" data-accent="d">
-            <div class="review-top">
-              <div class="review-avatar">AP</div>
-              <div class="review-id">
-                <div class="review-name">Arjun Patel</div>
-                <div class="review-role">Technical Evaluator</div>
-              </div>
-              <div class="review-stars" aria-label="5 stars">★★★★★</div>
-            </div>
-            <p class="review-body">
-              WebRTC peer-to-peer combined with WebSockets streaming and MarianMT delivers sub-second latency. 
-              Impressive architecture for a major engineering project.
-            </p>
-          </article>
+      <div class="transcript-panel" id="transcriptPanel" role="log" aria-label="Translated conversation log" tabindex="0">
+        <div class="transcript-placeholder" id="transcriptPlaceholder">
+          <span>Speak in English, Hindi or Kannada — your translated text and audio will appear here in real time.</span>
         </div>
       </div>
 
-      <div class="reviews-dots" id="reviewsDots" role="tablist" aria-label="Choose review"></div>
+      <audio id="translatedAudio" controls></audio>
     </section>
 
-    <!-- Logs (collapsible) -->
-    <section class="card glass logs-card collapsed">
-      <div class="card-header clickable" id="logsToggle">
-        <div class="card-title-group">
-          <h2><span class="icon">📋</span> System Diagnostics & Logs</h2>
-          <span class="card-subtitle">Real-time WebSocket event feed</span>
+    <!-- Supporting sections -->
+    <div class="secondary-grid">
+      <!-- User reviews (sliding carousel) -->
+      <section class="card reviews-card" id="reviewsCard" aria-roledescription="carousel"
+        aria-label="User reviews">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 9h8" /><path d="M8 13h5" /></svg>
+            </span>
+            <h2>Engineering Showcase &amp; Feedback</h2>
+            <p class="card-subtitle">Real-Time multilingual calling tested across low-bandwidth networks</p>
+          </div>
+          <div class="reviews-nav">
+            <button id="reviewPrev" type="button" class="review-arrow" aria-label="Previous review">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button id="reviewNext" type="button" class="review-arrow" aria-label="Next review">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
         </div>
-        <svg class="chevron" id="logsChevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </div>
-      <pre id="log" class="log-area"></pre>
-    </section>
+
+        <div class="reviews-viewport" id="reviewsViewport">
+          <div class="reviews-track" id="reviewsTrack">
+            <article class="review-slide" data-accent="a">
+              <div class="review-top">
+                <div class="review-avatar" aria-hidden="true">PS</div>
+                <div class="review-id">
+                  <div class="review-name">Priya Sharma</div>
+                  <div class="review-role">Calling parents from London</div>
+                </div>
+                <div class="review-stars" role="img" aria-label="5 stars">★★★★★</div>
+              </div>
+              <p class="review-body">
+                I speak English all day at work, and my parents only speak Hindi. TalkBridge made our calls
+                feel normal again — they talk, I reply, and the translation just happens.
+              </p>
+            </article>
+
+            <article class="review-slide" data-accent="b">
+              <div class="review-top">
+                <div class="review-avatar" aria-hidden="true">RK</div>
+                <div class="review-id">
+                  <div class="review-name">Rajesh Kumar</div>
+                  <div class="review-role">Remote Team Collaboration</div>
+                </div>
+                <div class="review-stars" role="img" aria-label="5 stars">★★★★★</div>
+              </div>
+              <p class="review-body">
+                The live word-by-word streaming captions show what the speaker is saying in milliseconds.
+                The voice interpretation follows naturally with high accuracy.
+              </p>
+            </article>
+
+            <article class="review-slide" data-accent="c">
+              <div class="review-top">
+                <div class="review-avatar" aria-hidden="true">EW</div>
+                <div class="review-id">
+                  <div class="review-name">Emma Wilson</div>
+                  <div class="review-role">Language Exchange Partner</div>
+                </div>
+                <div class="review-stars" role="img" aria-label="4 stars">★★★★☆</div>
+              </div>
+              <p class="review-body">
+                I practice Hindi every morning. Hearing the Hindi pronunciation while seeing the instant English
+                transcript helps me understand conversational nuances much faster.
+              </p>
+            </article>
+
+            <article class="review-slide" data-accent="d">
+              <div class="review-top">
+                <div class="review-avatar" aria-hidden="true">AP</div>
+                <div class="review-id">
+                  <div class="review-name">Arjun Patel</div>
+                  <div class="review-role">Technical Evaluator</div>
+                </div>
+                <div class="review-stars" role="img" aria-label="5 stars">★★★★★</div>
+              </div>
+              <p class="review-body">
+                WebRTC peer-to-peer combined with WebSockets streaming and MarianMT delivers sub-second latency.
+                Impressive architecture for a major engineering project.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="reviews-dots" id="reviewsDots" role="tablist" aria-label="Choose review"></div>
+      </section>
+
+      <!-- Logs (collapsible) -->
+      <section class="card logs-card collapsed" aria-labelledby="logsTitle">
+        <h2 class="logs-heading" id="logsTitle">
+          <button type="button" class="logs-toggle" id="logsToggle" aria-expanded="false" aria-controls="log">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>
+            </span>
+            <span class="logs-title-group">
+              <span class="logs-title">System Diagnostics &amp; Logs</span>
+              <span class="card-subtitle">Real-time WebSocket event feed</span>
+            </span>
+            <svg class="chevron" id="logsChevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+        </h2>
+        <pre id="log" class="log-area" tabindex="0" role="region" aria-label="Diagnostics event log"></pre>
+      </section>
+    </div>
   </main>
 
-  <script src="./app.js?v=140"></script>
+  <script src="./app.js?v=141"></script>
 </body>
 
 </html>
